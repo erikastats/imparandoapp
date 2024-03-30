@@ -1,19 +1,27 @@
 #app/view/tema.R
 
 box::use(
-  shiny[h3, moduleServer, NS]
+  shiny[div, moduleServer, NS, h3
+        , verbatimTextOutput, textInput, actionButton, renderPrint],
+  shiny.fluent[Stack]
+
 )
 
 #' @export
 ui <- function(id){
   ns <- NS(id)
-  
-  h3("Registrazione dei dati")
+  div(
+    class = "ms-depth-4",
+    textInput(ns("tema"), label = h3("Tema del dialogo")),
+    actionButton(ns("action"), label = "Ok"),
+    verbatimTextOutput(ns("value")))
+
+
 }
 
 #' @export
 server <- function(id){
-  moduleServer(id, fucntion(input, output, session){
-    print("Chart module server part works!")
+  moduleServer(id, function(input, output, session){
+    output$value <- renderPrint({input$tema})
   })
 }
