@@ -10,7 +10,7 @@ box::use(app/view/tema,
          app/view/sottoargomento,
          app/view/paginaweb,
          app/view/numeropersone,
-         app/view/dataset
+         app/view/dataset,
          app/view/linea)
 
 #' @export
@@ -28,11 +28,11 @@ ui <- function(id) {
       horizontal = TRUE,
       span(class= "ms-depth-8", paginaweb$ui(ns("paginaweb_id"))),
       span(class= "ms-depth-8", numeropersone$ui(ns("numeropersone_id"))),
-      span(linea$ui(ns("linead_id")))
+      span(class= "ms-depth-8", linea$ui(ns("linead_id")))
     ),
     Stack(
       horizontal = TRUE,
-
+      span(dataset$ui(ns("datatble")))
     )
   )
 
@@ -48,5 +48,6 @@ server <- function(id) {
     numeropersone$server("numeropersone_id")
 
     linea$server("linead_id")
+    dataset$server("datatable")
   })
 }
