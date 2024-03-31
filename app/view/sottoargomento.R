@@ -1,4 +1,4 @@
-#app/view/tema.R
+#app/view/sottoargomento.R
 
 box::use(
   shiny[div, moduleServer, NS, h3
@@ -13,7 +13,7 @@ ui <- function(id){
   ns <- NS(id)
   div(
     class = "ms-depth-4",
-    textInput(ns("tema"), label = h3("Tema del dialogo")),
+    textInput(ns("sottoargomento"), label = h3("Sotto argomento del dialogo")),
     actionButton(ns("action"), label = "Ok"),
     textOutput(ns("value")))
 
@@ -26,7 +26,7 @@ server <- function(id){
     updated_value <- reactiveVal(NULL)
 
     observeEvent(input$action, {
-      updated_value(input$tema)
+      updated_value(input$sottoargomento)
     })
     output$value <- renderText({ updated_value()})
   })

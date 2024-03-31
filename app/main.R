@@ -5,7 +5,11 @@ box::use(
   shiny.fluent[fluentPage, Stack, Text]
 )
 
-box::use(app/view/tema)
+box::use(app/view/tema,
+         app/view/argomento,
+         app/view/sottoargomento,
+         app/view/paginaweb,
+         app/view/numeropersone,)
 
 #' @export
 ui <- function(id) {
@@ -14,7 +18,15 @@ ui <- function(id) {
     Text("Registrazione dei dati", variant = "xxLarge"),
     Stack(
       horizontal = TRUE,
-      span(class= "ms-depth-8", tema$ui(ns("tema_id")))
+      span(class= "ms-depth-8", tema$ui(ns("tema_id"))),
+      span(class= "ms-depth-8", argomento$ui(ns("argomento_id"))),
+      span(class= "ms-depth-8", sottoargomento$ui(ns("sottoargomento_id")))
+    ),
+    Stack(
+      horizontal = TRUE,
+      span(class= "ms-depth-8", paginaweb$ui(ns("paginaweb_id"))),
+      # span(class= "ms-depth-8", numeropersone$ui(ns("numeropersone_id")))
+
     )
   )
 
@@ -24,5 +36,9 @@ ui <- function(id) {
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
     tema$server("tema_id")
+    argomento$server("argomento_id")
+    sottoargomento$server("sottoargomento_id")
+    paginaweb$server("paginaweb_id")
+    # numeropersone$server("numeropersone_id")
   })
 }
