@@ -1,7 +1,7 @@
 # app/main.R
 
 box::use(
-  shiny[ moduleServer, NS, span],
+  shiny[ moduleServer, NS, span, reactiveVal],
   shiny.fluent[fluentPage, Stack, Text]
 )
 
@@ -10,8 +10,9 @@ box::use(app/view/tema,
          app/view/sottoargomento,
          app/view/paginaweb,
          app/view/numeropersone,
-         app/view/dataset,
-         app/view/linea)
+         app/view/datatable,
+         app/view/linea,
+         app/view/addingdata)
 
 #' @export
 ui <- function(id) {
@@ -20,6 +21,7 @@ ui <- function(id) {
     Text("Registrazione dei dati", variant = "xxLarge"),
     Stack(
       horizontal = TRUE,
+      # Stack(horizontal)
       span(class= "ms-depth-8", tema$ui(ns("tema_id"))),
       span(class= "ms-depth-8", argomento$ui(ns("argomento_id"))),
       span(class= "ms-depth-8", sottoargomento$ui(ns("sottoargomento_id")))
@@ -32,7 +34,8 @@ ui <- function(id) {
     ),
     Stack(
       horizontal = TRUE,
-      span(dataset$ui(ns("datatble")))
+      span(addingdata$ui(ns("addingdata_id"))),
+      span(class= "ms-depth-8" ,datatable$ui(ns("datatable")))
     )
   )
 
@@ -41,13 +44,11 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    tema$server("tema_id")
-    argomento$server("argomento_id")
-    sottoargomento$server("sottoargomento_id")
-    paginaweb$server("paginaweb_id")
-    numeropersone$server("numeropersone_id")
 
-    linea$server("linead_id")
-    dataset$server("datatable")
+
+    data <- reactiveVal(addingdata$server("addingdata_id"))
+
+
+    datatable$server("datatable", data())
   })
 }

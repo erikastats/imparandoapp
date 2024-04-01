@@ -15,9 +15,8 @@ ui <- function(id){
     class = "ms-depth-4",
     textInput(ns("paginaweb"), label = h3("Pagina web del dialogo")),
     actionButton(ns("action"), label = "Ok"),
-    textOutput(ns("value")))
-
-
+    # textOutput(ns("value"))
+    )
 }
 
 #' @export
@@ -28,6 +27,8 @@ server <- function(id){
     observeEvent(input$action, {
       updated_value(input$paginaweb)
     })
-    output$value <- renderText({ updated_value()})
+    # output$value <- renderText({ updated_value()})
+
+    return(updated_value())
   })
 }

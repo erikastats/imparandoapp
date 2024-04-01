@@ -11,12 +11,12 @@ box::use(
 #' @export
 ui <- function(id){
   ns <- NS(id)
-  div(
-    class = "ms-depth-4",
+  Stack(
+    horizontal = TRUE,
     textInput(ns("tema"), label = h3("Tema del dialogo")),
     actionButton(ns("action"), label = "Ok"),
-    textOutput(ns("value")))
-
+    # textOutput(ns("value")))
+  )
 
 }
 
@@ -28,6 +28,8 @@ server <- function(id){
     observeEvent(input$action, {
       updated_value(input$tema)
     })
-    output$value <- renderText({ updated_value()})
+    # output$value <- renderText({ updated_value()})
+
+    return(updated_value())
   })
 }

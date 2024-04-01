@@ -15,7 +15,8 @@ ui <- function(id){
     class = "ms-depth-4",
     textInput(ns("sottoargomento"), label = h3("Sotto argomento del dialogo")),
     actionButton(ns("action"), label = "Ok"),
-    textOutput(ns("value")))
+    # textOutput(ns("value"))
+    )
 
 
 }
@@ -28,6 +29,8 @@ server <- function(id){
     observeEvent(input$action, {
       updated_value(input$sottoargomento)
     })
-    output$value <- renderText({ updated_value()})
+    # output$value <- renderText({ updated_value()})
+
+    return(updated_value())
   })
 }

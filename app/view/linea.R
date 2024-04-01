@@ -13,9 +13,8 @@ ui <- function(id){
     class = "ms-depth-4",
     textInput(ns("linea"), label = h3("Linea di discorso")),
     actionButton(ns("action"), label = "Ok"),
-    textOutput(ns("value")))
-
-
+    # textOutput(ns("value"))
+    )
 }
 
 #' @export
@@ -26,6 +25,8 @@ server <- function(id){
     observeEvent(input$action, {
       updated_value(input$linea)
     })
-    output$value <- renderText({ updated_value()})
+    # output$value <- renderText({ updated_value()})
+
+    return(updated_value())
   })
 }
